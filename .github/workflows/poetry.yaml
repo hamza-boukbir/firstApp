@@ -1,0 +1,14 @@
+on:
+  push:
+jobs:
+  run-pytest-setup:
+    runs-on: ubuntu-latest
+    name: Run Pytest with Poetry
+    steps:
+      - uses: actions/checkout@v3
+      - id: poetry-setup
+        uses: makanu/poetry-setup-composite-action@v1
+        with:
+          python_version: '3.7'
+          hashed_key: "venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}"
+          poetry_command: "pytest"
